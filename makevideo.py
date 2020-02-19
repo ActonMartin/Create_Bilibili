@@ -3,8 +3,10 @@ import os
 
 
 class MakeVideo:
-	def __init__(self, mp23_path):
-		self.mp3_path = mp23_path
+	def __init__(self, mp3_path,images_path,videos_dir):
+		self.mp3_path = mp3_path
+		self.images_path = images_path
+		self.videos_dir = videos_dir
 
 	def get_files(self):
 		files_name = []
@@ -14,11 +16,12 @@ class MakeVideo:
 			files_name.append(file_name)
 			file_path = os.path.join(mp3_path,file)
 			files_path.append(file_path)
+			print(files_path)
 		return files_path
 
-
-	def getMp3Len(files_path):
-		images_path = "E:\\PR\\04\\image\\"
+	def getMp3Len(self,files_path):
+		#images_path = "E:\\PR\\04\\image\\"
+		print(files_path,"00")
 		for each_file_path in files_path:
 			command = ["D:\\Software\\ffmpeg\\bin\\ffprobe.exe","-loglevel","quiet","-print_format","json","-show_format","-show_streams","-i", each_file_path]
 			result = subprocess.Popen(command,shell=True,stdout = subprocess.PIPE, stderr = subprocess.STDOUT)
@@ -37,7 +40,7 @@ class MakeVideo:
 			video_name_0 = os.path.basename(each_file_path).split(".")[0]
 			#video_name = os.path.join(os.path.basename(each_file_path).split(".")[0],".mp4")
 			video_name = video_name_0 + ".mp4"
-			videos_dir = "E:\\PR\\04\\here"
+			#videos_dir = "E:\\PR\\04\\here"
 			video_path = os.path.join(videos_dir,video_name)
 			command2 = ["D:\\Software\\ffmpeg\\bin\\ffmpeg.exe" ,"-y", "-loop", "1", "-i",image_path,"-i",each_file_path,"-r","30","-b:v","2500k","-vframes",vframes,"-acodec","ac3","-ab","160k","-vcodec","mpeg4",video_path]
 			subprocess.Popen(command2)
@@ -46,9 +49,11 @@ class MakeVideo:
 		#return float(data)
 
 if __name__ == "__main__":
-	mp3_path = "E:\\PR\\04\\mp3"
-	#images_path = "E:\\PR\\04\\image"
-	files_path1 = MakeVideo.get_files(mp3_path)
-	timeoo = MakeVideo.getMp3Len(files_path1)
+	mp3_path = "C:\\test\\mp3"
+	images_path = "C:\\test\\mp3\\image\\"
+	videos_dir = "C:\\test\\here"
+	makevideo = MakeVideo(mp3_path, images_path, videos_dir)
+	files_path1 = makevideo.get_files()
+	timeoo = makevideo.getMp3Len(files_path=files_path1)
 
 
