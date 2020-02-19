@@ -4,16 +4,11 @@ import os
 from PIL import Image, ImageDraw, ImageFont
 
 '''
-def create_image():
-	img = np.zeros([1080, 1920, 3], np.uint8)
-	img[:, :, 0] = np.zeros([1080, 1920]) + 250
-	img[:, :, 1] = np.ones([1080, 1920]) + 235
-	img[:, :, 2] = np.ones([1080, 1920]) * 215
-	#cv2.imshow("iamge", img)
-	cv2.imwrite("background.jpg", img)
+功能是给音频创建同名称的图片作为后面的视频的画面内容。
 '''
 
-class put_text():
+
+class PutText():
 
 	def __init__(self):
 		self.path = "E:\\Pandownload\\04 数据结构与算法之美\\mp3"
@@ -45,4 +40,4 @@ class put_text():
 			cv2.imencode('.jpg', cv2charimg)[1].tofile(i +str(".jpg"))
 
 if __name__ == "__main__":
-	put_text().put_text()
+	PutText().put_text()
